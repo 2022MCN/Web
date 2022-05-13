@@ -3,26 +3,25 @@
     <v-container class="pt-16 mt-16 pb-4">
       <v-layout class="pt-16 mt-12" >
           <v-row>
-            <v-col sm="12" cols="12" justify="center" align="center">
-                <p class="text-h2 font-weight-bold" style="color:#FFFFFF; display:inline;">GET </p>
-                <p class="text-h2 font-weight-black" style="color:#FFBB00; display:inline;"> INSPIRED </p>
-                <p class="text-h2 font-weight-bold" style="color:#FFFFFF; display:inline;">BY SOMBRA</p>
+            <v-col cols="12" justify="center" align="center" class="text-h2 font-weight-bold">
+              <p class="white--text">BE A  <span style="color:#FFBB00"> TRUSTFUL </span> COACH <br></p>
+              <p class="white--text"> BY <span style="color:#FFBB00"> SOMBRA </span></p>
             </v-col>
           </v-row>
       </v-layout>
       <v-layout class="mt-12 mb-16" >
           <v-row>
-            <v-col sm="12" cols="12" justify="center" align="center">
+            <v-col cols="12" justify="center" align="center">
                 <p class="text-h4 transition-swing font-weight-bold" style="color:#FFFFFF">No.1 Overwatch Data Lab</p>
             </v-col>
           </v-row>
       </v-layout>
       <v-layout>
         <v-row>
-          <v-col sm="12" cols="12" justify="center" align="center">
-            <!--<v-btn rounded x-large v-if="isSignin === 1" color="#FFBB00" class="text-h4 font-weight-bold" depressed @click="store" dark> GET STARTED</v-btn>-->
+          <v-col cols="12" justify="center" align="center">
             <DragAndDrop v-if="isSignin === 1"></DragAndDrop>
-            <v-btn rounded x-large v-else-if="isSignin === 0" color="#FFBB00" class="text-h4 font-weight-bold" @click="google" dark> GET STARTED</v-btn>
+            <!-- <v-btn rounded x-large v-else-if="isSignin === 0" color="#FFBB00" class="text-h4 font-weight-bold" @click="google" dark> GET STARTED</v-btn> -->
+            <v-btn rounded x-large v-else-if="isSignin === 0" color="#FFBB00" class="text-h4 font-weight-bold" :href="this.$store.state.contactDiscordUrl" dark> GET STARTED</v-btn>
           </v-col>
         </v-row>
       </v-layout>
@@ -44,7 +43,7 @@ const db = getFirestore()
 
 export default ({
   components: {
-    DragAndDrop
+    DragAndDrop,
   },
   data(){
     return {

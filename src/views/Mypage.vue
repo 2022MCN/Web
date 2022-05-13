@@ -41,7 +41,7 @@
                 <v-text-field :placeholder="selectedPosition" disabled></v-text-field>
               </v-col>
             </v-row>
-            <v-row class="mb-3" align="center">
+            <v-row class="mb-3" align="center" v-if="selectedTeam === 'Verify Your Team'">
               <v-col align="center" justify="center" cols="12">
                 <a style="color:white; text-decoration:none;" href="https://discord.gg/Bv4HPjw7Nw"><v-icon> mdi-discord </v-icon> Verify your team</a>
               </v-col>
@@ -51,33 +51,39 @@
               </v-col>
             </v-row>
           </v-card>
-          <v-row class="align-center mt-8">
+          <!-- <v-row class="align-center mt-8">
             <v-col cols="12" sm="5">
             </v-col>
             <v-col cols="12" sm="1">
             <v-btn
               color="#FFBB00"
               width="94"
-              class="align-center justify-center pa-4 mx-auto"
+              class="align-center justify-center"
               dark
               @click="saveChanges"
             >
-              <h4>Save</h4>
+              Save
             </v-btn>
             </v-col>
             <v-col cols="12" sm="1">
             <v-btn
               color="#756E59"
               width="94"
-              class="align-center justify-center pa-4 mx-auto"
+              class="align-center justify-center"
               dark
               @click="cancel"
             >
-              <h4>Cancel</h4>
+              Cancel
             </v-btn>
             </v-col>
             <v-col cols="12" sm="5">
             </v-col>
+          </v-row> -->
+          <v-row class="mx-12">
+            <Files></Files>
+          </v-row>
+          <v-row class="mx-12">
+            <Workshop></Workshop>
           </v-row>
         </v-flex>
       </v-layout>
@@ -98,9 +104,14 @@ import {
   setDoc,
   getDoc,
 } from "firebase/firestore";
+import Files from "@/components/Files.vue"
+import Workshop from "@/components/Workshop.vue"
 
 export default {
   name: 'MyPage',
+  components: {
+    Files, Workshop
+  },
   data() {
     return {
       positionStates: [

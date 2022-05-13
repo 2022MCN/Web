@@ -6,7 +6,7 @@ Vue.use(Vuetify)
 
 export default new Vuetify({
   icons: {
-    iconfont: 'fa',
+    iconfont: 'md',
     values: {
       OverwatchLeagueIcon: {
         component: OverwatchLeagueIcon

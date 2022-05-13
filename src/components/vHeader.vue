@@ -94,7 +94,7 @@ export default {
     },
     async signout () {
       this.$store.commit('setLogout')
-      this.$store.commit('setOffUserTableauViz')
+      this.$store.commit('setOffUserTableauUrl')
       const auth = getAuth()
       let _this = this
       await signOut(auth).then(function () {
@@ -147,7 +147,7 @@ export default {
                   _this.isSignin = 1
                   this.reload()
                 }
-                _this.$store.commit('setUserTableauViz',docSnap.data()['tableau'])
+                _this.$store.commit('setUserTableauUrl',docSnap.data()['tableau'])
               } else {
                 setDoc(doc(usersRef, uuid), _this.initObj)
                   .then(()=>{

@@ -7,7 +7,7 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
   state: {
-    tableauViz: '',
+    tableauUrl: '',
     isReloaded: 0,
     isSignin: 0,
     fireUser: null,
@@ -16,7 +16,8 @@ export const store = new Vuex.Store({
       act: false,
       msg: '',
       color: 'error'
-    }
+    },
+    contactDiscordUrl: 'https://discord.gg/fvQF382QXd'
   },
   mutations: {
     setFireUser (state, fireU) {
@@ -37,14 +38,14 @@ export const store = new Vuex.Store({
     setLogout (state) {
       state.isSignin = 0
     },
-    setUserTableauViz (state, tableauViz) {
-      state.tableauViz = tableauViz
+    setUserTableauUrl (state, tableauUrl) {
+      state.tableauUrl = tableauUrl
     },
-    setOffUserTableauViz (state) {
-      state.tableauViz = ''
+    setOffUserTableauUrl (state) {
+      state.tableauUrl = ''
     },
-    getTableauViz (state) {
-      return state.tableauViz
+    getTableauUrl (state) {
+      return state.tableauUrl
     },
     pop (state, d) {
       state.sb.msg = d.msg

@@ -1,78 +1,36 @@
 <template>
-  <div id="tableau">
+  <div id="tableau_div">
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import tableau from 'tableau-api'
 
 export default ({
   name: 'TableauViz',
-  props: {
-    url: {
-      type: String,
-      default: ''
-    },
-    options: {
-      type: Object,
-      required: false
-    },
-    width: {
-      type: String,
-      default: ''
-    },
-    height: {
-      type: String,
-      default: ''
-    },
-    filters: {
-      type: Object,
-      required: false
-    },
-    apiUrl: {
-      type: String,
-      default: 'https://public.tableau.com/javascripts/api/tableau-2.8.0.min.js'
-    }
-  },
-  data () {
-    return {
-      viz: {},
-      workBook: {}
-    }
-  },
-  watch: {
-    url () {
-      if (this.viz) {
-        this.viz.dispose()
-      }
-      this.initViz()
-    },
-    height (val) {
-      this.viz.setFrameSize(parseInt(this.width), parseInt(val))
-    },
-    width (val) {
-      this.viz.setFrameSize(parseInt(val), parseInt(this.height))
-    },
-    filters () {
-      if (this.viz) {
-        this.viz.dispose()
-      }
-      this.initViz()
-    }
-  },
+  data: () => ({
+    // apiUrl: 'https://public.tableau.com/javascripts/api/tableau-2.9.0.min.js',
+    viz: {},
+    workBook: {}
+  }),
   computed: {
     worksheet () {
       return this.workBook.getActiveSheet()
-    }
+    },
+    ...mapState({
+      tableauUrl: state => state.tableauUrl
+    })
   },
   methods: {
     initViz () {
-      const containerDiv = document.getElementById('tableau')
+      const containerDiv = document.getElementById('tableau_div')
       // Setting up constructor options
       let options = {}
       if (!this.options) {
         options = {
-          height: this.height ? this.height : 1000,
-          width: this.width ? this.width : 1000,
+          // height: this.height ? this.height : 904,
+          // width: this.width ? this.width : 1709,
           hideTabs: false,
           hideToolbar: false,
           onFirstInteractive: () => { this.workBook = this.viz.getWorkbook() }
@@ -85,20 +43,33 @@ export default ({
       } else {
         options = this.options
       }
-      this.viz = new window.tableau.Viz(containerDiv, this.url, options)
+      this.viz = new tableau.Viz(containerDiv, this.tableauUrl, options)
     }
   },
   mounted () {
-    this.tableauViz = this.$store.state.tableauViz
-    const recaptchaScript = document.createElement('script')
-    // recaptchaScript.async = true
-    recaptchaScript.setAttribute('src', this.apiUrl)
-    this.tableauScript = document.head.appendChild(recaptchaScript)
-    this.initViz()
+    const containerDiv = document.getElementById('tableau_div')
+    // Setting up constructor options
+    let options = {}
+    if (!this.options) {
+      options = {
+        height: this.height ? this.height : 904,
+        width: this.width ? this.width : 1709,
+        hideTabs: false,
+        hideToolbar: false,
+        onFirstInteractive: () => { this.workBook = this.viz.getWorkbook() }
+      }
+      if (this.filters) {
+        Object.keys(this.filters).map((el) => {
+          options[el.toString()] = this.filters[el.toString()]
+        })
+      }
+    } else {
+      options = this.options
+    }
+    this.viz = new window.tableau.Viz(containerDiv, this.tableauUrl, options)
   },
   beforeDestroy () {
     this.viz.dispose()
   }
 })
-
 </script>

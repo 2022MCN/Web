@@ -46,11 +46,6 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
-    path: '/files',
-    name: 'Files',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Files.vue')
-  },
-  {
     path: '*',
     component: () => import(/* webpackChunkName: "about" */ '../views/e404.vue')
   }
